@@ -1,14 +1,20 @@
 require 'rubygems'
 require 'rufus/scheduler'
+require 'logger'
 
-AUDIO_SOURCE = 'http://66.55.135.147:8000/Channel1'
+
+AUDIO_SOURCE = 'http://103.11.91.71:8000/Channel1'
 FFMPEG_PATH  = '/usr/bin/ffmpeg'
+Logger = Logger.new('logfile.log')
+
 
 def gen_cmd(time,name)
-  timestamp   =  Time.now.strftime("%Y%m%d-%S")
-  record_name = "#{timestamp}/#{name}-#{timestamp}.mp3"
-  record_time =   (3600 * time) + 1 
-  "/bin/mkdir -p #{timestamp};#{FFMPEG_PATH} -i #{AUDIO_SOURCE} -acodec copy -t #{record_time} '#{record_name}'"
+  timestamp   =  Time.now.strftime("%Y%m%d")
+  record_name = "mp3/#{timestamp}/#{name}-#{timestamp}.mp3"
+  record_time =   (3600 * time + 60).to_i
+  cmd="/bin/mkdir -p mp3/#{timestamp};#{FFMPEG_PATH} -i #{AUDIO_SOURCE} -acodec copy -t #{record_time} '#{record_name}'"
+  Logger.info(cmd)
+  cmd
 end
 
 scheduler = Rufus::Scheduler.start_new
