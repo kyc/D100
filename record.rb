@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rufus/scheduler'
 
 AUDIO_SOURCE = 'http://66.55.135.147:8000/Channel1'
-FFMPEG_PATH  = '/usr/local/bin/ffmpeg'
+FFMPEG_PATH  = '/usr/bin/ffmpeg'
 
 def gen_cmd(time,name)
   timestamp   =  Time.now.strftime("%Y%m%d-%S")
